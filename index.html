@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Music Play</title>
+        <link rel="shortcut icon" href="assets/img/iconMusic.png"
+            type="image/x-icon">
+        <link rel="stylesheet" href="assets/css/music.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&family=Roboto:wght@300;400;500;700&display=swap"
+            rel="stylesheet">
+    </head>
+    <body>
+        <div class="player">
+            <div class="dashboard">
+                <header>
+                    <h4>Now playing:</h4>
+                    <h2>String Name Song</h2>
+                </header>
+
+                <!-- CD -->
+                <div class="cd">
+                    <div class="cd-thurm" style="background-image:
+                        url('assets/img/damcuoicuaem.jpg');"></div>
+                </div>
+
+                <!-- Control -->
+                <div class="control"> <!--Có lớp active sẵn r-->
+                    <div class="btn btn-repeat">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </div>
+                    <div class="btn btn-previous">
+                        <i class="fa-solid fa-backward-step"></i>
+                    </div>
+                    <div class="btn btn-play">
+                        <i class="fa-solid fa-circle-play"></i>
+                        <i class="fa-solid fa-circle-pause"></i>
+                    </div>
+                    <div class="btn btn-next">
+                        <i class="fa-solid fa-forward-step"></i>
+                    </div>
+                    <div class="btn btn-random">
+                        <i class="fa-solid fa-shuffle"></i>
+                    </div>
+                </div>
+
+                <input id="progress" type="range" class="progress" value="0"
+                    step="1" min="0" max="100">
+
+                <audio id="audio" src=""></audio>
+            </div>
+
+            <!-- Playlist: Có lớp active-->
+            <div class="playlist">  
+                <div class="song">
+                    <div class="thurm">
+                        <div class="thurm-img" style="background-image:
+                            url('assets/img/damcuoicuaem.jpg')"></div>
+                    </div>
+                    <div class="body">
+                        <div class="title">Name Song</div>
+                        <div class="author">Name author</div>
+                    </div>
+                    <div class="option">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/js/music.js"></script>
+    </body>
+</html>

@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    width: 100%;
+}
+
+.player{
+    position: relative;
+}
+
+.dashboard {
+    padding: 10px 0 20px 0 ;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    background: #fff;
+}
+
+header{
+    text-align: center;
+}
+
+header h4 {
+    font-size: 12px;
+    color: #e61782;
+}
+
+header h2 {
+    font-size: 20px;
+}
+
+.cd {
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.cd-thurm {
+    padding-top: 100%;
+    border-radius: 50%;
+    background-size: contain;
+}
+
+.control {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn {
+    /* font-size: 22px; */
+    color: rgba(0, 0, 0, 0.6);
+}
+.btn.active {
+    color: #e61782;
+}
+
+.btn.btn-play {
+    color: #e61782;
+    font-size: 50px;
+}
+.btn.btn-play .fa-circle-pause{
+    display: none;
+}
+
+.progress {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    appearance: none;
+    background: #d3d3d3;
+}
+.progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #e61782;
+    cursor: pointer;
+}
+
+.playlist {
+    background: #e7e6e7;
+    padding: 10px 0;
+    padding-top: 385.2px
+}
+
+.song{
+    display: flex;
+    align-items: center;;
+    width: 95%;
+    height: 80px;
+    margin: 15px auto;
+    box-shadow: 0 1px 2px #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.song.active {
+    background: #e61782;
+}
+
+.song.active,
+.song.active .title,
+.song.active .author,
+.song.active .option {
+    color: #fff;
+}
+
+.thurm{
+    width: 60px;
+    height:60px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.thurm-img{
+    padding-top: 100%;
+    border-radius: 50%;
+    background-size: contain;
+}
+
+.body {
+    flex:1
+}
+
+.title{
+    font-size: 20px;
+    font-weight: 700;
+    font-style: bold;
+}
+
+.author{
+    font-size: 14px;
+    font-weight: 400;
+    color: #959090;
+}
+
+.option {
+    font-size: 18px;
+    padding: 0 20px;
+    color: #757575;
+}
