@@ -1,16 +1,25 @@
 const btnIconPlay = document.querySelector('.btn.btn-play i.fa-circle-play');
 const btnIconPause = document.querySelector('.btn.btn-play i.fa-circle-pause');
 
+const PLAY_STORAGE_KEY = "F8 config"
 const heading = document.querySelector('header h2')
 const cdThum = document.querySelector('.cd-thurm')
 const audio = document.querySelector('#audio')
 const btnPlay = document.querySelector('.btn-play')
 const player = document.querySelector('.player')
+const playlist = document.querySelector('.playlist')
+const btnRandom = document.querySelector('.btn-random')
+const btnPreat = document.querySelector('.btn-repeat')
 const app = {
     isPlaying: false,
     currenIndex: 0,
     isRandom: false,
     isPreat: false,
+    config: JSON.parse(localStorage.getItem(PLAY_STORAGE_KEY)) || {},
+    setConfig: function(key, value){
+        this.config[key] = value;
+        localStorage.setItem(PLAY_STORAGE_KEY, JSON.stringify(this.config))
+    },
     songs: [{
         name: 'Đám cưới của em',
         singer: 'Lý Tuấn Kiệt - Phát Hồ',
@@ -70,7 +79,7 @@ const app = {
     render: function () {
         const htmls = this.songs.map(function (song, index) {
             return `
-                <div class="song ${index  === app.currenIndex ? 'active' : ""}">
+                <div class="song ${index  === app.currenIndex ? 'active' : ""}" data-index ="${index}">
                     <div class="thurm">
                         <div class="thurm-img" style="background-image:
                             url('${song.img}')"></div>
@@ -90,13 +99,13 @@ const app = {
 
     handleEvent: function () {
         const _this = this;
-        const cd = document.querySelector('.cd')
+        const cd = document.querySelector('.cd') 
         const cdWidth = cd.offsetWidth;
         const progress = document.querySelector('#progress')
         const btnnextSong = document.querySelector('.btn-next')
         const btnpriSong = document.querySelector('.btn-previous')
-        const btnRandom = document.querySelector('.btn-random')
-        const btnPreat = document.querySelector('.btn-repeat')
+        const control = document.querySelector('.control')
+        const contolHeight = control.clientHeight
 
         document.onscroll = function () {
             const newWidth = cdWidth - window.scrollY;
@@ -116,10 +125,9 @@ const app = {
         btnPlay.onclick = function () {
             if (_this.isPlaying) {
                 audio.pause();
-            }else {
+            }else {      
                 audio.play();
             }
-            
         }
         // Khi nhan play song
         audio.onplay = function (){
@@ -127,6 +135,10 @@ const app = {
             btnIconPlay.style.display = 'none';
             btnIconPause.style.display = 'block';
             CDAnimation.play();
+            // Fix loi thay doi height cua lop control khi an PLay
+            if(control.clientHeight !== contolHeight){
+                control.style.height = contolHeight + 'px'
+            }
         }
         // Khi song pause
         audio.onpause = function (){
@@ -168,6 +180,7 @@ const app = {
         // Xu ly khi random song:
         btnRandom.onclick = function (e) {
            _this.isRandom = !_this.isRandom;
+           _this.setConfig("isRandom", _this.isRandom)
            btnRandom.classList.toggle("active", _this.isRandom)
         }
         // Xu ly khi end bai hat
@@ -181,8 +194,29 @@ const app = {
         // XU li nut repaet
         btnPreat.onclick = function (e) {
             _this.isPreat = !_this.isPreat;
+           _this.setConfig("isPreat", _this.isPreat)
             btnPreat.classList.toggle("active", _this.isPreat)
         }
+        // Xu ly khi click playlist
+        playlist.onclick = function (e) {
+            const songNode = e.target.closest(".song:not(.active)")
+            // Click khi click vao song chuyen den bai vua click
+            if(songNode || e.target.closest(".option")){
+                // Khi cclick vao song
+                if(songNode){
+                    const indexSongSelect = Number(songNode.dataset.index)
+                    _this.currenIndex = indexSongSelect;
+                    _this.render()
+                    _this.loadCurrentSong();
+                    audio.play()
+                }
+                // Khi click vao option
+                if(e.target.closest(".option")) {
+
+                }
+            }
+        }
+
     },
     scrollToACtive: function () {
         setTimeout(() => {
@@ -205,6 +239,10 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThum.style.backgroundImage = `url('${this.currentSong.img}')`;
         audio.src = this.currentSong.path;
+    },
+    loadConfig: function(){
+        this.isRandom = this.config.isRandom
+        this.isPreat = this.config.isPreat
     },
     nextSong: function() {
         this.currenIndex++
@@ -229,15 +267,22 @@ const app = {
         this.loadCurrentSong();
     },
     start: function () {
+        // Gan cau hinh tu config vao app
+        this.loadConfig();
 
+        // DInh nghia proerty
         this.defineProperties();
 
+        // Xu ly su kien
         this.handleEvent();
 
         this.loadCurrentSong();
 
         // In ra danh sách bài hát
         this.render();
+
+        btnPreat.classList.toggle("active", this.isPreat)
+        btnRandom.classList.toggle("active", this.isRandom)
     }
 }
 
