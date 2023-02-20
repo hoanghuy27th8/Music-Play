@@ -220,10 +220,17 @@ const app = {
     },
     scrollToACtive: function () {
         setTimeout(() => {
-            document.querySelector('.song.active').scrollIntoView({
-                behavior:'smooth',
-                block:'nearest'
-            })
+            if(this.currenIndex === 0 || this.currenIndex === 1){
+                document.querySelector('.song.active').scrollIntoView({
+                    behavior:'smooth',
+                    block:'end'
+                })
+            }else {
+                document.querySelector('.song.active').scrollIntoView({
+                    behavior:'smooth',
+                    block:'nearest'
+                })
+            }
         },200)
     },
     defineProperties: function () {
